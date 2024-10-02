@@ -339,6 +339,8 @@ void InputMethod::onEnabledLanguageSettingsChanged()
 {
     Q_D(InputMethod);
     d->enabledLanguages = d->m_settings.enabledLanguages();
+    qDebug() << "TriPham: InputMethod::onEnabledLanguageSettingsChanged - d->enabledLanguages:" << d->enabledLanguages;
+
     // Reset the value if it gets unset
     if (d->enabledLanguages.length() == 0) {
         d->m_settings.resetEnabledLanguages();

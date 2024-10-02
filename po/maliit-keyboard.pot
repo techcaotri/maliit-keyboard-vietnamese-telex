@@ -245,6 +245,11 @@ msgid ""
 "(Chewing)"
 msgstr ""
 
+#: qml/keys/languages.js:63
+msgid "Vietnamese\n"
+"Telex"
+msgstr ""
+
 #: src/plugin/inputmethod.cpp:275
 msgid "Done"
 msgstr ""

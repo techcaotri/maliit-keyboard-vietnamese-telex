@@ -59,6 +59,7 @@ function languageIdToName(languageId)
     if (languageId == "uk")         return Gettext.qsTr("Ukrainian");
     if (languageId == "zh-hans")         return Gettext.qsTr("Chinese\n(Pinyin)");
     if (languageId == "zh-hant")         return Gettext.qsTr("Chinese\n(Chewing)");
+    if (languageId == "vi")         return Gettext.qsTr("Vietnamese\n(Telex)");
 
     // fallback
     return languageId.charAt(0).toUpperCase() + languageId.slice(1);

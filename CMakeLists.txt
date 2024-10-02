@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.9)
 project(maliit-keyboard VERSION 2.3.1)
 
 option(enable-hunspell "Use hunspell for error correction (maliit-keyboard-plugin only)" ON)
-option(enable-tests "Build tests" ON)
+option(enable-tests "Build tests" OFF)
 
 # Install paths
 include(GNUInstallDirs)
@@ -17,6 +17,7 @@ set(HUNSPELL_DICT_PATH "/usr/share/hunspell" CACHE PATH "Directory containing hu
 set(MALIIT_KEYBOARD_QML_DIR "${CMAKE_INSTALL_LIBDIR}/maliit/keyboard2/qml" CACHE PATH "Directory containing maliit-keyboard QML files")
 set(MALIIT_KEYBOARD_DATA_DIR "${CMAKE_INSTALL_DATADIR}/maliit/keyboard2" CACHE PATH "Directory containing maliit-keyboard data files")
 set(MALIIT_KEYBOARD_LANGUAGES_DIR "${CMAKE_INSTALL_LIBDIR}/maliit/keyboard2/languages" CACHE PATH "Directory containing maliit-keyboard data")
+message("TriPham: MALIIT_KEYBOARD_LANGUAGES_DIR: ${MALIIT_KEYBOARD_LANGUAGES_DIR}")
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
@@ -334,6 +335,9 @@ elseif(Anthy_FOUND)
 endif()
 
 abstract_language_plugin(ko korean
+  LIBRARIES westernsupport
+  DIRECTORY qml/keys)
+abstract_language_plugin(vi vietnamese
   LIBRARIES westernsupport
   DIRECTORY qml/keys)
 

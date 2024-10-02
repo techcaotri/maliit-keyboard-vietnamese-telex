@@ -31,6 +31,7 @@
 
 #include "wordengine.h"
 #include "abstractlanguageplugin.h"
+#include <qglobal.h>
 
 namespace MaliitKeyboard {
 namespace Logic {
@@ -82,8 +83,11 @@ public:
         QLocale::setDefault(QLocale::c());
         setlocale(LC_NUMERIC, "C");
 
+        qCritical() << "TriPham: wordengine.cpp - loading plugin: " + pluginPath;
+        qCritical() << "TriPham: wordengine.cpp - DEFAULT_PLUGIN: " << DEFAULT_PLUGIN;
         if (pluginPath == DEFAULT_PLUGIN) {
             QString prefix = qgetenv("KEYBOARD_PREFIX_PATH");
+            qCritical() << "TriPham: wordengine.cpp - prefix: " + prefix;
             if (!prefix.isEmpty()) {
                 pluginPath = prefix + QDir::separator() + pluginPath;
             }
@@ -106,6 +110,7 @@ public:
             }
         } else {
             qCritical() << __PRETTY_FUNCTION__ << " Loading plugin failed: " << pluginLoader.errorString();
+            qCritical() << "wordengine.cpp - TriPham: " + pluginPath;
             // fallback
             if (pluginPath != DEFAULT_PLUGIN)
                 loadPlugin(DEFAULT_PLUGIN);
