@@ -1,4 +1,4 @@
-Maliit Keyboard
+Maliit Keyboard With Vietnamese TELEX
 ===============
 
 Maliit Keyboard is a free software virtual keyboard for Linux systems with Wayland and X11 display servers. It supports many different languages and emoji. It is implemented as a plug-in for Maliit Framework.
