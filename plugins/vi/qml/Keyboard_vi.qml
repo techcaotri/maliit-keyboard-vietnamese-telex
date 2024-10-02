@@ -20,12 +20,23 @@ import MaliitKeyboard 2.0
 
 import "keys/"
 import keys 1.0
+import "keys/avim.js" as AVIM
+import "keys/avim_qml.js" as AVIMJS
 
 KeyPad {
     anchors.fill: parent
 
     content: c1
     symbols: "languages/Keyboard_symbols.qml"
+
+    property int inputMethod: 1 // 1: TELEX, 2: VNI, 3: VIQR
+
+    Component.onCompleted:
+    {
+        AVIMJS.initAVIM();
+        AVIMJS.setInputMethod(inputMethod);
+        console.log("AVIM initialized with method:", inputMethod);
+    }
 
     Column {
         id: c1

@@ -34,22 +34,31 @@ CharKey {
 
         function onKeyReleased(keyString, action) {
             // get previous preedit string
+            console.debug("ko - onKeyReleased: " + keyString + " " + action);
             var preedit = Keyboard.preedit;
+            console.debug("ko - onKeyReleased: preedit=" + preedit);
 
             if (Parser.is_hangul(keyString)) {
+                console.debug("ko - onKeyReleased: is_hangul=true");
                 // parsing preedit until compose one syllable. 
                 if (preedit.length > 1) { 
+                    console.debug("ko - onKeyReleased: preedit.length>1");
                     var syllableString = preedit.substring(0,preedit.length - 1);
                     var preeditString = preedit[preedit.length - 1];
+                    console.debug("ko - onKeyReleased: syllableString=" + syllableString + ", preeditString=" + preeditString);
                     Keyboard.preedit = syllableString + Parser.add_jamo(preeditString, keyString);
+                    console.debug("ko - onKeyReleased: Keyboard.preedit=" + Keyboard.preedit);
                 } else {
+                    console.debug("ko - onKeyReleased: preedit.length>1");
                     Keyboard.preedit = Parser.add_jamo(preedit, keyString);
+                    console.debug("ko - onKeyReleased: Keyboard.preedit=" + Keyboard.preedit);
                 }
 
                 return;
             }
 
             Keyboard.preedit = preedit + keyString;
+            console.debug("ko - onKeyReleased: not hangul, Keyboard.preedit=" + Keyboard.preedit);
             event_handler.onKeyReleased("", "commit");
         }
     }

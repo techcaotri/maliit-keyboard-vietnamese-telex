@@ -19,7 +19,8 @@ import QtQuick 2.4
 import MaliitKeyboard 2.0
 
 import keys 1.0
-import "parser.js" as Parser
+import "avim.js" as AVIM
+import "avim_qml.js" as AVIMJS
 
 CharKey {
 
@@ -29,28 +30,39 @@ CharKey {
     Item {
         id: handler
 
-        //Each Hangul represents one syllable. The Hangul are composed of jamo. 
-        //It need to manipulate preedit until compose one syllable. 
+        //Each Hangul represents one syllable. The Hangul are composed of jamo.
+        //It need to manipulate preedit until compose one syllable.
 
         function onKeyReleased(keyString, action) {
             // get previous preedit string
             var preedit = Keyboard.preedit;
 
-            if (Parser.is_hangul(keyString)) {
-                // parsing preedit until compose one syllable. 
-                if (preedit.length > 1) { 
-                    var syllableString = preedit.substring(0,preedit.length - 1);
-                    var preeditString = preedit[preedit.length - 1];
-                    Keyboard.preedit = syllableString + Parser.add_jamo(preeditString, keyString);
-                } else {
-                    Keyboard.preedit = Parser.add_jamo(preedit, keyString);
-                }
-
-                return;
-            }
-
+            var event = {
+              key: keyString.charCodeAt(0),
+            };
+            var vietTextArea = {
+              selectionStart: Keyboard.cursorPosition,
+              selectionEnd: Keyboard.cursorPosition,
+              text: preedit,
+            };
+            console.debug("onKeyReleased: " + keyString + " " + action);
+            console.debug("onKeyReleased: preedit=" + preedit);
+            console.debug("onKeyReleased: event.key=" + event.key);
+            console.debug("onKeyReleased: vietTextArea=" + JSON.stringify(vietTextArea));
+            console.debug("onKeyReleased: preedit.length > 0");
+            var result = AVIMJS.handleKeyPress(event, vietTextArea);
+            if (result === false) {
+              Keyboard.preedit = vietTextArea.text;
+              Keyboard.cursorPosition = vietTextArea.cursorPosition;
+              console.debug("onKeyReleased: result=false; Keyboard.preedit=" + Keyboard.preedit);
+              console.debug("onKeyReleased: result=false; Keyboard.cursorPosition=" + Keyboard.cursorPosition);
+              return;
+            }             
             Keyboard.preedit = preedit + keyString;
-            event_handler.onKeyReleased("", "commit");
+            console.debug("onKeyReleased: result=true; Keyboard.preedit=" + Keyboard.preedit);
+            if (!keyString.match(/^[0-9a-z]+$/)) {
+              event_handler.onKeyReleased("", "commit");
+            }
         }
     }
 }

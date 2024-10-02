@@ -30,7 +30,7 @@ bool VietnameseLanguageFeatures::alwaysShowSuggestions() const
 
 bool VietnameseLanguageFeatures::autoCapsAvailable() const
 {
-    return false;
+    return true;
 }
 
 bool VietnameseLanguageFeatures::activateAutoCaps(const QString &preedit) const

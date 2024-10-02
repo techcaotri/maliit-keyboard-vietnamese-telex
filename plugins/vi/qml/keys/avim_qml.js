@@ -13,6 +13,7 @@ function initAVIM() {
 }
 
 function handleKeyPress(event, textArea) {
+  console.log("handleKeyPress", event.key, textArea.selectionStart, textArea.selectionEnd, textArea.text);
     if (!AVIMObj) {
         console.error("AVIM object is not initialized");
         return true;
