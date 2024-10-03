@@ -9,7 +9,7 @@ option(enable-tests "Build tests" OFF)
 include(GNUInstallDirs)
 
 if(NOT DEFINED QT5_QML_INSTALL_DIR)
-    set(QT5_QML_INSTALL_DIR "${LIB_INSTALL_DIR}/qt5/qml" CACHE PATH
+  set(QT5_QML_INSTALL_DIR "${LIB_INSTALL_DIR}/qt5/qml" CACHE PATH
             "Installation directory for Qt 5 QML plugins [LIB_INSTALL_DIR/qt5/qml]")
 endif()
 
@@ -99,10 +99,10 @@ set(maliit-keyboard-definitions HUNSPELL_DICT_PATH="${HUNSPELL_DICT_PATH}"
 set(maliit-keyboard-include-dirs)
 
 if(enable-hunspell)
-    find_package(Hunspell REQUIRED)
-    list(APPEND maliit-keyboard-definitions HAVE_HUNSPELL)
-    list(APPEND maliit-keyboard-libraries ${Hunspell_LIBRARIES})
-    list(APPEND maliit-keyboard-include-dirs ${Hunspell_INCLUDE_DIRS})
+  find_package(Hunspell REQUIRED)
+  list(APPEND maliit-keyboard-definitions HAVE_HUNSPELL)
+  list(APPEND maliit-keyboard-libraries ${Hunspell_LIBRARIES})
+  list(APPEND maliit-keyboard-include-dirs ${Hunspell_INCLUDE_DIRS})
 endif()
 
 add_library(maliit-keyboard-lib STATIC ${MALIIT_KEYBOARD_LIB_SOURCES})
@@ -156,8 +156,8 @@ set(MALIIT_KEYBOARD_COMMON_SOURCES
 add_library(maliit-keyboard-common STATIC ${MALIIT_KEYBOARD_COMMON_SOURCES})
 target_link_libraries(maliit-keyboard-common Qt5::DBus Qt5::QuickControls2 Maliit::Plugins maliit-keyboard-lib maliit-keyboard-view gsettings-qt Qt5::Multimedia ${Intl_LIBRARIES})
 if (Qt5Feedback_FOUND)
-    target_link_libraries(maliit-keyboard-common Qt5::Feedback)
-    target_compile_definitions(maliit-keyboard-common PUBLIC HAVE_QT5_FEEDBACK)
+  target_link_libraries(maliit-keyboard-common Qt5::Feedback)
+  target_compile_definitions(maliit-keyboard-common PUBLIC HAVE_QT5_FEEDBACK)
 endif()
 target_compile_definitions(maliit-keyboard-common PRIVATE ${maliit-keyboard-definitions})
 target_compile_features(maliit-keyboard-common PRIVATE cxx_std_17)
@@ -188,93 +188,93 @@ target_include_directories(westernsupport PUBLIC src/lib/logic plugins/westernsu
 target_compile_definitions(westernsupport PRIVATE ${maliit-keyboard-definitions})
 
 function(language_plugin _language _full_language)
-    # To support layout style variations such as en@dv we need to avoid using
-    # the @ character in variables, so split and replace it with _
-    set(_target ${_language})
-    if(${_language} MATCHES "^(.*)\@(.*)$")
-        set(_target ${CMAKE_MATCH_1}_${CMAKE_MATCH_2})
-    endif()
+  # To support layout style variations such as en@dv we need to avoid using
+  # the @ character in variables, so split and replace it with _
+  set(_target ${_language})
+  if(${_language} MATCHES "^(.*)\@(.*)$")
+    set(_target ${CMAKE_MATCH_1}_${CMAKE_MATCH_2})
+  endif()
 
-    set(PLUGIN_SOURCES
+  set(PLUGIN_SOURCES
             plugins/${_language}/src/${_full_language}plugin.h
             plugins/${_language}/src/${_full_language}plugin.json)
-    add_library(${_target}plugin MODULE ${PLUGIN_SOURCES})
-    set_target_properties(${_target}plugin PROPERTIES OUTPUT_NAME ${_language}plugin)
-    target_link_libraries(${_target}plugin maliit-keyboard-common westernsupport)
-    install(FILES plugins/${_language}/qml/Keyboard_${_language}.qml
+  add_library(${_target}plugin MODULE ${PLUGIN_SOURCES})
+  set_target_properties(${_target}plugin PROPERTIES OUTPUT_NAME ${_language}plugin)
+  target_link_libraries(${_target}plugin maliit-keyboard-common westernsupport)
+  install(FILES plugins/${_language}/qml/Keyboard_${_language}.qml
             plugins/${_language}/qml/Keyboard_${_language}_email.qml
             plugins/${_language}/qml/Keyboard_${_language}_url.qml
             plugins/${_language}/qml/Keyboard_${_language}_url_search.qml
             DESTINATION ${MALIIT_KEYBOARD_LANGUAGES_DIR}/${_language})
-    install(TARGETS ${_target}plugin
+  install(TARGETS ${_target}plugin
             LIBRARY DESTINATION ${MALIIT_KEYBOARD_LANGUAGES_DIR}/${_language})
-    foreach(_file IN LISTS ARGN)
-        install(FILES plugins/${_language}/${_file}
+  foreach(_file IN LISTS ARGN)
+    install(FILES plugins/${_language}/${_file}
                 DESTINATION ${MALIIT_KEYBOARD_LANGUAGES_DIR}/${_language})
-    endforeach()
+  endforeach()
 endfunction()
 
 function(abstract_language_plugin _language _full_language)
-    set(options ABSTRACT_LANGUAGE_PLUGIN)
-    set(oneValueArgs PLUGIN_DIR LANGUAGE_FEATURES)
-    set(multiValueArgs SOURCES LIBRARIES INCLUDE_DIRS DEFINITIONS FILES DIRECTORY)
-    cmake_parse_arguments(abstract_language_plugin "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
+  set(options ABSTRACT_LANGUAGE_PLUGIN)
+  set(oneValueArgs PLUGIN_DIR LANGUAGE_FEATURES)
+  set(multiValueArgs SOURCES LIBRARIES INCLUDE_DIRS DEFINITIONS FILES DIRECTORY)
+  cmake_parse_arguments(abstract_language_plugin "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
-    # To support layout style variations such as en@dv we need to avoid using
-    # the @ character in variables, so split and replace it with _
-    set(_target ${_language})
-    if(${_language} MATCHES "^(.*)\@(.*)$")
-        set(_target ${CMAKE_MATCH_1}_${CMAKE_MATCH_2})
-    endif()
+  # To support layout style variations such as en@dv we need to avoid using
+  # the @ character in variables, so split and replace it with _
+  set(_target ${_language})
+  if(${_language} MATCHES "^(.*)\@(.*)$")
+    set(_target ${CMAKE_MATCH_1}_${CMAKE_MATCH_2})
+  endif()
 
-    set(_plugindir ${_language})
-    if(NOT ${abstract_language_plugin_PLUGIN_DIR} EQUAL "")
-        set(_plugindir ${abstract_language_plugin_PLUGIN_DIR})
-    endif()
-    set(PLUGIN_SOURCES
+  set(_plugindir ${_language})
+  if(NOT ${abstract_language_plugin_PLUGIN_DIR} EQUAL "")
+    set(_plugindir ${abstract_language_plugin_PLUGIN_DIR})
+  endif()
+  set(PLUGIN_SOURCES
             plugins/${_plugindir}/src/${_full_language}plugin.h
             plugins/${_plugindir}/src/${_full_language}plugin.json)
-    if(EXISTS ${CMAKE_SOURCE_DIR}/plugins/${_plugindir}/src/${_full_language}plugin.cpp)
-        list(APPEND PLUGIN_SOURCES
+  if(EXISTS ${CMAKE_SOURCE_DIR}/plugins/${_plugindir}/src/${_full_language}plugin.cpp)
+    list(APPEND PLUGIN_SOURCES
             plugins/${_plugindir}/src/${_full_language}plugin.cpp)
-    endif()
-    if(NOT ${abstract_language_plugin_LANGUAGE_FEATURES} EQUAL "")
-        list(APPEND PLUGIN_SOURCES
+  endif()
+  if(NOT ${abstract_language_plugin_LANGUAGE_FEATURES} EQUAL "")
+    list(APPEND PLUGIN_SOURCES
                 plugins/${_plugindir}/src/${abstract_language_plugin_LANGUAGE_FEATURES}languagefeatures.cpp
                 plugins/${_plugindir}/src/${abstract_language_plugin_LANGUAGE_FEATURES}languagefeatures.h)
-    elseif(EXISTS ${CMAKE_SOURCE_DIR}/plugins/${_plugindir}/src/${_full_language}languagefeatures.cpp)
-        list(APPEND PLUGIN_SOURCES
+  elseif(EXISTS ${CMAKE_SOURCE_DIR}/plugins/${_plugindir}/src/${_full_language}languagefeatures.cpp)
+    list(APPEND PLUGIN_SOURCES
                 plugins/${_plugindir}/src/${_full_language}languagefeatures.cpp
                 plugins/${_plugindir}/src/${_full_language}languagefeatures.h)
-    endif()
-    if(abstract_language_plugin_ABSTRACT_LANGUAGE_PLUGIN)
-        list(APPEND PLUGIN_SOURCES
+  endif()
+  if(abstract_language_plugin_ABSTRACT_LANGUAGE_PLUGIN)
+    list(APPEND PLUGIN_SOURCES
                 src/lib/logic/abstractlanguageplugin.cpp
                 src/lib/logic/abstractlanguageplugin.h)
-    endif()
-    foreach(_s IN LISTS abstract_language_plugin_SOURCES)
-        list(APPEND PLUGIN_SOURCES plugins/${_plugindir}/src/${_s})
-    endforeach()
-    add_library(${_target}plugin MODULE ${PLUGIN_SOURCES})
-    set_target_properties(${_target}plugin PROPERTIES OUTPUT_NAME ${_language}plugin)
-    target_link_libraries(${_target}plugin Qt5::Core Maliit::Plugins maliit-keyboard-common ${abstract_language_plugin_LIBRARIES})
-    target_include_directories(${_target}plugin PRIVATE src/lib/logic ${abstract_language_plugin_INCLUDE_DIRS})
-    target_compile_definitions(${_target}plugin PRIVATE ${abstract_language_plugin_DEFINITIONS})
-    install(TARGETS ${_target}plugin
+  endif()
+  foreach(_s IN LISTS abstract_language_plugin_SOURCES)
+    list(APPEND PLUGIN_SOURCES plugins/${_plugindir}/src/${_s})
+  endforeach()
+  add_library(${_target}plugin MODULE ${PLUGIN_SOURCES})
+  set_target_properties(${_target}plugin PROPERTIES OUTPUT_NAME ${_language}plugin)
+  target_link_libraries(${_target}plugin Qt5::Core Maliit::Plugins maliit-keyboard-common ${abstract_language_plugin_LIBRARIES})
+  target_include_directories(${_target}plugin PRIVATE src/lib/logic ${abstract_language_plugin_INCLUDE_DIRS})
+  target_compile_definitions(${_target}plugin PRIVATE ${abstract_language_plugin_DEFINITIONS})
+  install(TARGETS ${_target}plugin
             LIBRARY DESTINATION ${MALIIT_KEYBOARD_LANGUAGES_DIR}/${_language})
-    install(FILES plugins/${_plugindir}/qml/Keyboard_${_language}.qml
+  install(FILES plugins/${_plugindir}/qml/Keyboard_${_language}.qml
             plugins/${_plugindir}/qml/Keyboard_${_language}_email.qml
             plugins/${_plugindir}/qml/Keyboard_${_language}_url.qml
             plugins/${_plugindir}/qml/Keyboard_${_language}_url_search.qml
             DESTINATION ${MALIIT_KEYBOARD_LANGUAGES_DIR}/${_language})
-    foreach(_file IN LISTS abstract_language_plugin_FILES)
-        install(FILES plugins/${_plugindir}/${_file}
+  foreach(_file IN LISTS abstract_language_plugin_FILES)
+    install(FILES plugins/${_plugindir}/${_file}
                 DESTINATION ${MALIIT_KEYBOARD_LANGUAGES_DIR}/${_language})
-    endforeach()
-    foreach(_dir IN LISTS abstract_language_plugin_DIRECTORY)
-        install(DIRECTORY plugins/${_plugindir}/${_dir}
+  endforeach()
+  foreach(_dir IN LISTS abstract_language_plugin_DIRECTORY)
+    install(DIRECTORY plugins/${_plugindir}/${_dir}
                 DESTINATION ${MALIIT_KEYBOARD_LANGUAGES_DIR}/${_language})
-    endforeach()
+  endforeach()
 endfunction()
 
 language_plugin(ar arabic)
@@ -321,13 +321,13 @@ abstract_language_plugin(fr-ch french LIBRARIES westernsupport)
 abstract_language_plugin(th thai DIRECTORY qml/keys)
 
 if(AnthyUnicode_FOUND)
-    abstract_language_plugin(ja japanese ABSTRACT_LANGUAGE_PLUGIN
+  abstract_language_plugin(ja japanese ABSTRACT_LANGUAGE_PLUGIN
             SOURCES anthyadapter.cpp anthyadapter.h
             LIBRARIES ${AnthyUnicode_LIBRARIES}
             INCLUDE_DIRS ${AnthyUnicode_INCLUDE_DIRS}
             DIRECTORY qml/keys)
 elseif(Anthy_FOUND)
-    abstract_language_plugin(ja japanese ABSTRACT_LANGUAGE_PLUGIN
+  abstract_language_plugin(ja japanese ABSTRACT_LANGUAGE_PLUGIN
             SOURCES anthyadapter.cpp anthyadapter.h
             LIBRARIES ${Anthy_LIBRARIES}
             INCLUDE_DIRS ${Anthy_INCLUDE_DIRS}
@@ -342,7 +342,7 @@ abstract_language_plugin(vi vietnamese
   DIRECTORY qml/keys)
 
 if(Pinyin_FOUND)
-    abstract_language_plugin(zh-hans pinyin ABSTRACT_LANGUAGE_PLUGIN
+  abstract_language_plugin(zh-hans pinyin ABSTRACT_LANGUAGE_PLUGIN
             PLUGIN_DIR pinyin
             LANGUAGE_FEATURES chinese
             SOURCES pinyinadapter.cpp pinyinadapter.h
@@ -351,7 +351,7 @@ if(Pinyin_FOUND)
             DEFINITIONS PINYIN_DATA_DIR="${Pinyin_DATA_DIR}")
 endif()
 if(Chewing_FOUND)
-    abstract_language_plugin(zh-hant chewing ABSTRACT_LANGUAGE_PLUGIN
+  abstract_language_plugin(zh-hant chewing ABSTRACT_LANGUAGE_PLUGIN
             PLUGIN_DIR chewing
             SOURCES chewingadapter.cpp chewingadapter.h
             LIBRARIES ${Chewing_LIBRARIES}
@@ -387,49 +387,49 @@ add_subdirectory(po)
 
 # TODO add all tests
 if(enable-tests)
-    enable_testing()
+  enable_testing()
 
-    find_package(Qt5Test)
+  find_package(Qt5Test)
 
-    add_library(test-utils STATIC
+  add_library(test-utils STATIC
             tests/unittests/common/inputmethodhostprobe.cpp
             tests/unittests/common/inputmethodhostprobe.h
             tests/unittests/common/utils.cpp
             tests/unittests/common/utils.h)
 
-    target_link_libraries(test-utils PUBLIC Maliit::Plugins Qt5::Core Qt5::Gui Qt5::Test westernsupport)
-    target_include_directories(test-utils PUBLIC tests/unittests tests/unittests/common src src/lib)
+  target_link_libraries(test-utils PUBLIC Maliit::Plugins Qt5::Core Qt5::Gui Qt5::Test westernsupport)
+  target_include_directories(test-utils PUBLIC tests/unittests tests/unittests/common src src/lib)
 
-    function(create_test name)
-        set(_extra_sources ${ARGV})
-        list(REMOVE_AT _extra_sources 0)
+  function(create_test name)
+    set(_extra_sources ${ARGV})
+    list(REMOVE_AT _extra_sources 0)
 
-        add_executable(${name}
+    add_executable(${name}
                 tests/unittests/${name}/${name}.cpp
                 ${_extra_sources})
 
-        target_link_libraries(${name} test-utils maliit-keyboard-common ${_libs})
+    target_link_libraries(${name} test-utils maliit-keyboard-common ${_libs})
 
-        add_test(${name} ${name})
+    add_test(${name} ${name})
 
-        set(test_targets ${test_targets} ${name} PARENT_SCOPE)
-    endfunction()
+    set(test_targets ${test_targets} ${name} PARENT_SCOPE)
+  endfunction()
 
-    create_test(ut_languagefeatures)
-    create_test(ut_repeat-backspace
+  create_test(ut_languagefeatures)
+  create_test(ut_repeat-backspace
             tests/unittests/common/wordengineprobe.cpp
             tests/unittests/common/wordengineprobe.h)
-    create_test(ut_editor
+  create_test(ut_editor
             tests/unittests/ut_editor/wordengineprobe.cpp
             tests/unittests/ut_editor/wordengineprobe.h)
-    #create_test(ut_preedit-string)
-    create_test(ut_text)
-    create_test(ut_word-candidates
+  #create_test(ut_preedit-string)
+  create_test(ut_text)
+  create_test(ut_word-candidates
             tests/unittests/ut_word-candidates/wordengineprobe.cpp
             tests/unittests/ut_word-candidates/wordengineprobe.h)
-    create_test(ut_wordengine)
+  create_test(ut_wordengine)
 
-    set_property(TEST ${test_targets} PROPERTY ENVIRONMENT
+  set_property(TEST ${test_targets} PROPERTY ENVIRONMENT
             MALIIT_PLUGINS_DATADIR=${CMAKE_SOURCE_DIR}/data)
 
 endif()
