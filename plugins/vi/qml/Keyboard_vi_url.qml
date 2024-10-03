@@ -36,31 +36,31 @@ KeyPad {
             anchors.horizontalCenter: parent.horizontalCenter;
             spacing: 0
 
-            HCharKey { label: "ㅂ"; shifted: "ㅃ"; extended: ["1"]; extendedShifted: ["1"]; leftSide: true; }
-            HCharKey { label: "ㅈ"; shifted: "ㅉ"; extended: ["2"]; extendedShifted: ["2"] }
-            HCharKey { label: "ㄷ"; shifted: "ㄸ"; extended: ["3"]; extendedShifted: ["3"] }
-            HCharKey { label: "ㄱ"; shifted: "ㄲ"; extended: ["4"]; extendedShifted: ["4"] }
-            HCharKey { label: "ㅅ"; shifted: "ㅆ"; extended: ["5"]; extendedShifted: ["5"] }
-            HCharKey { label: "ㅛ"; shifted: "ㅛ"; extended: ["6"]; extendedShifted: ["6"] }
-            HCharKey { label: "ㅕ"; shifted: "ㅕ"; extended: ["7"]; extendedShifted: ["7"] }
-            HCharKey { label: "ㅑ"; shifted: "ㅑ"; extended: ["8"]; extendedShifted: ["8"] }
-            HCharKey { label: "ㅐ"; shifted: "ㅒ"; extended: ["9"]; extendedShifted: ["9"] }
-            HCharKey { label: "ㅔ"; shifted: "ㅖ"; extended: ["0"]; extendedShifted: ["0"]; rightSide: true; }
+            VCharKey { label: "ㅂ"; shifted: "ㅃ"; extended: ["1"]; extendedShifted: ["1"]; leftSide: true; }
+            VCharKey { label: "ㅈ"; shifted: "ㅉ"; extended: ["2"]; extendedShifted: ["2"] }
+            VCharKey { label: "ㄷ"; shifted: "ㄸ"; extended: ["3"]; extendedShifted: ["3"] }
+            VCharKey { label: "ㄱ"; shifted: "ㄲ"; extended: ["4"]; extendedShifted: ["4"] }
+            VCharKey { label: "ㅅ"; shifted: "ㅆ"; extended: ["5"]; extendedShifted: ["5"] }
+            VCharKey { label: "ㅛ"; shifted: "ㅛ"; extended: ["6"]; extendedShifted: ["6"] }
+            VCharKey { label: "ㅕ"; shifted: "ㅕ"; extended: ["7"]; extendedShifted: ["7"] }
+            VCharKey { label: "ㅑ"; shifted: "ㅑ"; extended: ["8"]; extendedShifted: ["8"] }
+            VCharKey { label: "ㅐ"; shifted: "ㅒ"; extended: ["9"]; extendedShifted: ["9"] }
+            VCharKey { label: "ㅔ"; shifted: "ㅖ"; extended: ["0"]; extendedShifted: ["0"]; rightSide: true; }
         }
 
         Row {
             anchors.horizontalCenter: parent.horizontalCenter;
             spacing: 0
 
-            HCharKey { label: "ㅁ"; shifted: "ㅁ"; leftSide: true; }
-            HCharKey { label: "ㄴ"; shifted: "ㄴ"; }
-            HCharKey { label: "ㅇ"; shifted: "ㅇ"; }
-            HCharKey { label: "ㄹ"; shifted: "ㄹ"; }
-            HCharKey { label: "ㅎ"; shifted: "ㅎ"; }
-            HCharKey { label: "ㅗ"; shifted: "ㅗ"; }
-            HCharKey { label: "ㅓ"; shifted: "ㅓ"; }
-            HCharKey { label: "ㅏ"; shifted: "ㅏ"; }
-            HCharKey { label: "ㅣ"; shifted: "ㅣ"; rightSide: true; }
+            VCharKey { label: "ㅁ"; shifted: "ㅁ"; leftSide: true; }
+            VCharKey { label: "ㄴ"; shifted: "ㄴ"; }
+            VCharKey { label: "ㅇ"; shifted: "ㅇ"; }
+            VCharKey { label: "ㄹ"; shifted: "ㄹ"; }
+            VCharKey { label: "ㅎ"; shifted: "ㅎ"; }
+            VCharKey { label: "ㅗ"; shifted: "ㅗ"; }
+            VCharKey { label: "ㅓ"; shifted: "ㅓ"; }
+            VCharKey { label: "ㅏ"; shifted: "ㅏ"; }
+            VCharKey { label: "ㅣ"; shifted: "ㅣ"; rightSide: true; }
         }
 
         Row {
@@ -68,13 +68,13 @@ KeyPad {
             spacing: 0
 
             ShiftKey {}
-            HCharKey { label: "ㅋ"; shifted: "ㅋ"; }
-            HCharKey { label: "ㅌ"; shifted: "ㅌ"; }
-            HCharKey { label: "ㅊ"; shifted: "ㅊ"; }
-            HCharKey { label: "ㅍ"; shifted: "ㅍ"; }
-            HCharKey { label: "ㅠ"; shifted: "ㅠ"; }
-            HCharKey { label: "ㅜ"; shifted: "ㅜ"; }
-            HCharKey { label: "ㅡ"; shifted: "ㅡ"; }
+            VCharKey { label: "ㅋ"; shifted: "ㅋ"; }
+            VCharKey { label: "ㅌ"; shifted: "ㅌ"; }
+            VCharKey { label: "ㅊ"; shifted: "ㅊ"; }
+            VCharKey { label: "ㅍ"; shifted: "ㅍ"; }
+            VCharKey { label: "ㅠ"; shifted: "ㅠ"; }
+            VCharKey { label: "ㅜ"; shifted: "ㅜ"; }
+            VCharKey { label: "ㅡ"; shifted: "ㅡ"; }
             HBackspaceKey {}
         }
 
@@ -86,9 +86,9 @@ KeyPad {
 
             SymbolShiftKey { id: symShiftKey;                            anchors.left: parent.left; height: parent.height; }
             LanguageKey    { id: languageMenuButton;                     anchors.left: symShiftKey.right; height: parent.height; }
-            HCharKey        { id: slashKey; label: "/"; shifted: "/";     anchors.left: languageMenuButton.right; height: parent.height; }
+            VCharKey        { id: slashKey; label: "/"; shifted: "/";     anchors.left: languageMenuButton.right; height: parent.height; }
             UrlKey         { id: urlKey; label: ".com"; extended: [".co.kr", ".or.kr", ".go.kr", ".ac.kr", ".kr"]; anchors.right: dotKey.left; height: parent.height; }
-            HCharKey        { id: dotKey;      label: "."; shifted: "."; extended: ["?", "-", "_", "!", "+", "%","#","/"]; extendedShifted: ["?", "-", "_", "!", "+", "%","#","/"]; anchors.right: enterKey.left; height: parent.height; }
+            VCharKey        { id: dotKey;      label: "."; shifted: "."; extended: ["?", "-", "_", "!", "+", "%","#","/"]; extendedShifted: ["?", "-", "_", "!", "+", "%","#","/"]; anchors.right: enterKey.left; height: parent.height; }
             ReturnKey      { id: enterKey;                               anchors.right: parent.right; height: parent.height; }
         }
     } // column

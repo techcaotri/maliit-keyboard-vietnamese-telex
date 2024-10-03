@@ -60,7 +60,7 @@ CharKey {
             }             
             Keyboard.preedit = preedit + keyString;
             console.debug("onKeyReleased: result=true; Keyboard.preedit=" + Keyboard.preedit);
-            if (!keyString.match(/^[0-9a-z]+$/)) {
+            if (!keyString.match(/^[0-9a-zA-Z]+$/)) {
               event_handler.onKeyReleased("", "commit");
             }
         }
