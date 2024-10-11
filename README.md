@@ -1,5 +1,6 @@
 Maliit Keyboard With Vietnamese TELEX
 ===============
+This project is a streamlined adaptation of the Mallit Keyboard, incorporating Vietnamese Telex input functionality. It leverages the robust AVIM open-source Input Method Editor for JavaScript (https://sourceforge.net/projects/rhos/), resulting in a efficient solution to be integrated in Maliit.
 
 Maliit Keyboard is a free software virtual keyboard for Linux systems with Wayland and X11 display servers. It supports many different languages and emoji. It is implemented as a plug-in for Maliit Framework.
 
