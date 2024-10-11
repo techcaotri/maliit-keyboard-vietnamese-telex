@@ -374,7 +374,7 @@ if(enable-presage)
             DIRECTORY qml/keys)
 endif()
 abstract_language_plugin(vi vietnamese
-  NGRAM_DATABASE Tat_Den-Ngo_Tat_To.txt
+  NGRAM_DATABASE Tat_Den-Canh_Dong_Bat_Tan.txt
   LIBRARIES westernsupport
   DIRECTORY qml/keys)
 if(Pinyin_FOUND)
